@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --color-canvas: #121214;
+  --color-ink: #f4f4f2;
+  --color-on-ink: #121214;
+  --color-muted: #b4b3ae;
+  --color-line: #2c2c30;
+  --color-brass: #e39a3c;
+  --color-mist: #3a3428;
+  --color-paper: #1b1b1e;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    min-height: 100vh;
+    background-color: var(--color-canvas);
+    background-image:
+      radial-gradient(48rem 28rem at 80% -10%, color-mix(in srgb, white 9%, transparent), transparent 70%),
+      radial-gradient(36rem 22rem at -10% 0%, color-mix(in srgb, var(--color-brass) 16%, transparent), transparent 62%);
+    background-size: auto;
+    background-attachment: fixed;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) { cursor: pointer; }
+  ::selection { background: color-mix(in srgb, var(--color-brass) 32%, white); }
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 2px;
+  }
+}
+
+.glass {
+  background: color-mix(in srgb, white 7%, transparent);
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  border: 1px solid color-mix(in srgb, white 12%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 10%, transparent),
+    0 24px 60px color-mix(in srgb, black 45%, transparent);
+  border-radius: 1.5rem;
+}
+
+.paper {
+  background: color-mix(in srgb, white 5%, var(--color-paper));
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, white 10%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
+  border-radius: 1.25rem;
+}
+
+.kicker {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-brass);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.75rem;
+  border-radius: 0.9rem;
+  padding: 0.4rem 0.75rem;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+.nav-link:hover { background: color-mix(in srgb, white 8%, transparent); color: var(--color-ink); }
+.nav-link.is-on {
+  background: color-mix(in srgb, white 10%, transparent);
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, white 14%, transparent);
+}
+
+.field {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, white 14%, transparent);
+  background: color-mix(in srgb, white 6%, transparent);
+  padding: 0.75rem 0.9rem;
+  color: var(--color-ink);
+}
+.field::placeholder { color: color-mix(in srgb, var(--color-muted) 80%, white); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  border-radius: 999px;
+  padding: 0.45rem 1.05rem;
+  font-weight: 500;
+}
+.btn-ink { background: var(--color-ink); color: var(--color-on-ink); }
+.btn-ink:hover { background: color-mix(in srgb, var(--color-ink) 88%, white); }
+.btn-ink:disabled { opacity: 0.55; }
+.btn-ghost {
+  background: color-mix(in srgb, white 6%, transparent);
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, white 16%, transparent);
+}
+.btn-ghost:hover { background: color-mix(in srgb, white 12%, transparent); }
+
+.rise { animation: rise 240ms ease; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.dock-aside { height: calc(100vh - 2rem); }
+.dock { padding-bottom: max(0.45rem, env(safe-area-inset-bottom)); }
+.scrim { background: rgb(0 0 0 / 0.5); }
+
+.track {
+  height: 0.35rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, white 10%, transparent);
+}
+.track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-brass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+}
