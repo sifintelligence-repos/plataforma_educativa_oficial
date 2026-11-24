@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "@tanstack/react-router";
 import { GROK_PROVIDERS, authClient, signIn } from "@/lib/auth/client";
 import { COHORT, FIRM, TAGLINE } from "@/lib/catalog";
@@ -11,6 +11,12 @@ export function LoginPanel() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [social, setSocial] = useState(false);
+
+  useEffect(() => {
+    const host = window.location.hostname;
+    setSocial(host.endsWith(".grok-sandbox.com"));
+  }, []);
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -103,19 +109,27 @@ export function LoginPanel() {
           >
             {mode === "create" ? "Ya tengo cuenta" : "Soy nuevo en la academia"}
           </button>
-          <div className="my-5 h-px bg-line" />
-          <div className="grid gap-2">
-            {GROK_PROVIDERS.map((provider) => (
-              <button
-                key={provider.providerId}
-                type="button"
-                className="btn btn-ghost w-full"
-                onClick={() => signIn(provider.providerId, { callbackURL: "/" })}
-              >
-                Continuar con {provider.label}
-              </button>
-            ))}
-          </div>
+          {social ? (
+            <>
+              <div className="my-5 h-px bg-line" />
+              <div className="grid gap-2">
+                {GROK_PROVIDERS.map((provider) => (
+                  <button
+                    key={provider.providerId}
+                    type="button"
+                    className="btn btn-ghost w-full"
+                    onClick={() => signIn(provider.providerId, { callbackURL: "/" })}
+                  >
+                    Continuar con {provider.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <p className="mt-4 text-sm text-muted">
+              En esta laptop entrá con Gmail y clave. Google y X no aceptan esta dirección.
+            </p>
+          )}
         </section>
       </div>
     </main>
