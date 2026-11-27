@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useIngress } from "@/components/ingress";
+import { Ring } from "@/components/ring";
 import { getCampus } from "@/lib/campus.functions";
 import { getProfileBoard, markAttendance, setGrade, type ProfileSignal } from "@/lib/profile.functions";
 
@@ -48,14 +49,17 @@ function ProfilePage() {
 
   return (
     <div className="rise grid gap-4">
-      <header>
-        <p className="kicker">Mi perfil</p>
-        <h1 className="mt-2 font-serif text-4xl md:text-5xl">{mine.name}</h1>
-        <p className="mt-2 max-w-xl text-sm text-muted">
-          {role === "estudiante"
-            ? `${mine.courseTitle}. La racha cuenta días seguidos. La nota oficial la carga el profesor. El potencial junta avance, nota y racha.`
-            : "Tu asistencia en la mesa. Abajo están los estudiantes, con racha, progreso, potencial y la nota que podés cargar."}
-        </p>
+      <header className="flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <p className="kicker">Perfil</p>
+          <h1 className="mt-2 text-4xl font-light tracking-tight md:text-5xl">{mine.name}</h1>
+          <p className="mt-2 max-w-xl text-sm text-muted">
+            {role === "estudiante"
+              ? `${mine.courseTitle}. La racha, la nota y el avance arman el potencial.`
+              : "Asistencia de la mesa y la planilla de estudiantes."}
+          </p>
+        </div>
+        <Ring value={role === "estudiante" ? mine.potential : mine.pct} caption={role === "estudiante" ? "potencial" : "avance"} />
       </header>
 
       <section className="glass overflow-hidden">

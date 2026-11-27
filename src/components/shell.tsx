@@ -97,8 +97,8 @@ export function Shell({ children }: { children: ReactNode }) {
         <Link to="/" className="flex items-center gap-3 rounded-2xl px-2 py-2">
           <Mark />
           <span>
-            <span className="block text-sm font-semibold tracking-wide">SIF</span>
-            <span className="block text-xs text-muted">Campus</span>
+            <span className="block text-sm font-medium tracking-wide">SIF</span>
+            <span className="mono block text-[10px] tracking-[0.14em] text-muted uppercase">Campus</span>
           </span>
         </Link>
         <nav className="mt-4 flex flex-1 flex-col gap-1" aria-label="Secciones">
